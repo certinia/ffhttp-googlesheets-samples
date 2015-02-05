@@ -1,0 +1,279 @@
+<apex:page controller="GoogleSheetsTestHarnessController"
+	id="page" docType="html-5.0" tabStyle="Google_Sheets_Test_Harness__tab">
+
+	<script language="javascript">
+	
+	    <!-- Collapse PageBlockSection on Page Load-->
+	    
+	    function addLoadEvent(func) 
+	    {
+	    	var oldonload = window.onload;
+	      	if (typeof window.onload != 'function') 
+	      	{
+	        	window.onload = func;
+	      	} 
+	      	else 
+	      	{
+	        	window.onload = function() 
+	        	{
+	          		if (oldonload) 
+	          		{
+	            		oldonload();
+	          		}
+	          	
+	          		func();
+	        	}
+	      	}
+	    }
+	 
+	    function minimiseAll() 
+	    {
+	  		minimise(document.getElementById('page:mainForm:mainBlock:gsheetsspreadsheets'));
+	  		minimise(document.getElementById('page:mainForm:mainBlock:gsheetsworksheets'));
+	  		minimise(document.getElementById('page:mainForm:mainBlock:gsheetscells'));
+	    }
+	    
+	    function minimise(element)
+	    {
+	    	if (element != null)
+	    	{
+	    		twistSection(element.childNodes[0].childNodes[0]);
+	    	}
+	    }
+	 
+	    addLoadEvent(minimiseAll);
+	</script>
+
+	<apex:form id="mainForm">
+		<apex:pageblock id="mainBlock" title="Google Sheets API Test Harness">
+			<apex:pageBlockSection columns="1" collapsible="false">
+				<apex:outputText>
+					This page allows all the Google Sheets API calls to be tested. 
+					It requires an authenticated Google Sheets connector (with the connector type name 'Google Sheets API') to function correctly.
+				</apex:outputText>
+			</apex:pageBlockSection>
+			
+			<apex:pageBlockSection id="messages" title="Callout Details"
+				columns="1" collapsible="true">
+				<apex:pagemessages />
+			</apex:pageBlockSection>
+			
+			<!-- Spreadsheets API Calls -->
+			<apex:actionRegion id="gsheetsspreadsheetsactionregion">
+				<apex:pageBlockSection id="gsheetsspreadsheets" title="Spreadsheets"
+					columns="2" collapsible="true">
+					<apex:outputLink
+						value="https://developers.google.com/google-apps/spreadsheets/">
+	                    https://developers.google.com/google-apps/spreadsheets/
+	                </apex:outputLink>
+					<apex:pageBlockSectionItem />
+
+					<!-- Spreadsheets Get Call -->
+					<apex:pageBlockSection id="gsheetsspreadsheetsget" title="GET"
+						columns="1" collapsible="false">
+						<apex:inputText label="Id" value="{!spreadsheetsGetRequestId}" />
+						<apex:commandButton value="Submit"
+							action="{!spreadsheetsGetRequest}" rerender="messages" />
+					</apex:pageBlockSection>
+
+					<!-- Spreadsheets List Call -->
+					<apex:pageBlockSection id="gsheetspreadsheetslist" title="LIST"
+						columns="1" collapsible="false">
+						<apex:commandButton value="Submit"
+							action="{!spreadsheetsListRequest}" rerender="messages" />
+					</apex:pageBlockSection>
+				</apex:pageBlockSection>
+			</apex:actionRegion>
+
+			<!-- Worksheet API Calls -->
+			<apex:actionRegion id="gsheetsworksheetsactionregion">
+				<apex:pageBlockSection id="gsheetsworksheets" title="Worksheets"
+					columns="2" collapsible="true">
+					<apex:outputLink
+						value="https://developers.google.com/google-apps/spreadsheets/#working_with_worksheets">
+	                    https://developers.google.com/google-apps/spreadsheets/#working_with_worksheets
+	                </apex:outputLink>
+					<apex:pageBlockSectionItem />
+
+					<!-- Worksheets Delete Call -->
+					<apex:pageBlockSection id="gsheetsworksheetsdelete" title="DELETE"
+						columns="1" collapsible="false">
+						<apex:inputText label="Spreadsheet Id"
+							value="{!worksheetsDeleteRequestSpreadsheetId}" />
+						<apex:inputText label="Id" value="{!worksheetsDeleteRequestId}" />
+						<apex:commandButton value="Submit"
+							action="{!worksheetsDeleteRequest}" rerender="messages" />
+					</apex:pageBlockSection>
+
+					<!-- Worksheets Get Call -->
+					<apex:pageBlockSection id="gsheetsworksheetsget" title="GET"
+						columns="1" collapsible="false">
+						<apex:inputText label="Spreadsheet Id"
+							value="{!worksheetsGetRequestSpreadsheetId}" />
+						<apex:inputText label="Id" value="{!worksheetsGetRequestId}" />
+						<apex:commandButton value="Submit"
+							action="{!worksheetsGetRequest}" rerender="messages" />
+					</apex:pageBlockSection>
+
+					<!-- Worksheets Insert Call -->
+					<apex:pageBlockSection id="gsheetworksheetsinsert" title="INSERT"
+						columns="1" collapsible="false">
+						<apex:inputText label="Spreadsheet Id"
+							value="{!worksheetsInsertRequestSpreadsheetId}" />
+						<apex:inputText label="Title"
+							value="{!worksheetsInsertRequestTitle}" />
+						<apex:input label="Col Count" type="number"
+							value="{!worksheetsInsertRequestColCount}" />
+						<apex:input label="Row Count" type="number"
+							value="{!worksheetsInsertRequestRowCount}" />
+						<apex:commandButton value="Submit"
+							action="{!worksheetsInsertRequest}" rerender="messages" />
+					</apex:pageBlockSection>
+
+					<!-- Worksheets List Call -->
+					<apex:pageBlockSection id="gsheetworksheetslist" title="LIST"
+						columns="1" collapsible="false">
+						<apex:inputText label="Spreadsheet Id"
+							value="{!worksheetsListRequestSpreadsheetId}" />
+						<apex:commandButton value="Submit"
+							action="{!worksheetsListRequest}" rerender="messages" />
+					</apex:pageBlockSection>
+
+					<!-- Worksheets Update Call -->
+					<apex:pageBlockSection id="gsheetworksheetsupdate" title="UPDATE"
+						columns="1" collapsible="false">
+						<apex:inputText label="Spreadsheet Id"
+							value="{!worksheetsUpdateRequestSpreadsheetId}" />
+						<apex:inputText label="Id" value="{!worksheetsUpdateRequestId}" />
+						<apex:inputText label="Version"
+							value="{!worksheetsUpdateRequestVersion}" />
+						<apex:inputText label="Title"
+							value="{!worksheetsUpdateRequestTitle}" />
+						<apex:input label="Col Count" type="number"
+							value="{!worksheetsUpdateRequestColCount}" />
+						<apex:input label="Row Count" type="number"
+							value="{!worksheetsUpdateRequestRowCount}" />
+						<apex:commandButton value="Submit"
+							action="{!worksheetsUpdateRequest}" rerender="messages" />
+					</apex:pageBlockSection>
+				</apex:pageBlockSection>
+			</apex:actionRegion>
+
+			<!-- Cells API Calls -->
+			<apex:actionRegion id="gsheetscellsactionregion">
+				<apex:pageBlockSection id="gsheetscells" title="Cells" columns="2"
+					collapsible="true">
+					<apex:outputLink
+						value="https://developers.google.com/google-apps/spreadsheets/#working_with_cell-based_feeds">
+	                    https://developers.google.com/google-apps/spreadsheets/#working_with_cell-based_feeds
+	                </apex:outputLink>
+					<apex:pageBlockSectionItem />
+
+					<!-- Cells Get Call -->
+					<apex:pageBlockSection id="gsheetcellsget" title="GET" columns="1"
+						collapsible="false">
+						<apex:inputText label="Spreadsheet Id"
+							value="{!cellsGetRequestSpreadsheetId}" />
+						<apex:inputText label="Worksheet Id"
+							value="{!cellsGetRequestWorksheetId}" />
+						<apex:inputText label="Cell Id" value="{!cellsGetRequestCellId}" />
+						<apex:commandButton value="Submit" action="{!cellsGetRequest}"
+							rerender="messages" />
+					</apex:pageBlockSection>
+
+					<!-- Cells List Call -->
+					<apex:pageBlockSection id="gsheetcellslist" title="LIST"
+						columns="1" collapsible="false">
+						<apex:inputText label="Spreadsheet Id"
+							value="{!cellsListRequestSpreadsheetId}" />
+						<apex:inputText label="Worksheet Id"
+							value="{!cellsListRequestWorksheetId}" />
+						<apex:input label="Min Col" type="number"
+							value="{!cellsListRequestMinCol}" />
+						<apex:input label="Max Col" type="number"
+							value="{!cellsListRequestMaxCol}" />
+						<apex:input label="Min Row" type="number"
+							value="{!cellsListRequestMinRow}" />
+						<apex:input label="Max Row" type="number"
+							value="{!cellsListRequestMaxRow}" />
+						<apex:commandButton value="Submit" action="{!cellsListRequest}"
+							rerender="gsheetcellsbatch,messages" />
+					</apex:pageBlockSection>
+					
+					<!-- Cells Batch Call -->
+					<apex:pageBlockSection id="gsheetcellsbatch" title="BATCH"
+						columns="1" collapsible="false">
+						<apex:inputText label="Spreadsheet Id"
+							value="{!cellsBatchRequestSpreadsheetId}" />
+						<apex:inputText label="Worksheet Id"
+							value="{!cellsBatchRequestWorksheetId}" />
+						<!-- Add the submit button before the cell table so that you don't have to scroll to the bottom of the
+							 page every time to press it -->
+						<apex:commandButton value="Submit" action="{!cellsBatchRequest}"
+							rerender="gsheetcellsbatch,messages" />
+							
+						<apex:pageBlockSection id="gsheetcellsbatchcell"
+							title="Batch Cell Information" columns="1" collapsible="false">
+							<apex:outputText
+								value="Cells can either be added individually or as a batch using the syntax row_from-row_to e.g. 1-4 in the col and row sections." />
+							<apex:selectRadio label="Operation"
+								value="{!cellsBatchRequestOperation}">
+								<apex:selectOptions value="{!cellBatchOperationTypes}" />
+							</apex:selectRadio>
+							<apex:inputText label="Version"
+								value="{!cellsBatchRequestVersion}" />
+							<apex:inputText label="Col" value="{!cellsBatchRequestCol}" />
+							<apex:inputText label="Row" value="{!cellsBatchRequestRow}" />
+							<apex:inputText label="Input Value"
+								value="{!cellsBatchRequestInputValue}" />
+
+							<apex:pageBlockSection>
+								<apex:commandButton value="Add Cells"
+									action="{!cellsBatchRequestAddCells}"
+									rerender="gsheetcellsbatchcell,messages" />
+								<apex:commandButton value="Reset cells"
+									action="{!cellsBatchRequestResetCells}"
+									rerender="gsheetcellsbatchcell" />
+							</apex:pageBlockSection>
+
+							<apex:pageBlockTable value="{!cellsBatchRequestValues}"
+								var="item">
+								<apex:column headerValue="Operation">
+									<apex:selectlist value="{!item.operation}">
+										<apex:selectoptions value="{!cellBatchOperationTypes}" />
+									</apex:selectlist>
+								</apex:column>
+								<apex:column headerValue="Col" value="{!item.col}" />
+								<apex:column headerValue="Row" value="{!item.row}" />
+								<apex:column headerValue="Version" value="{!item.version}" />
+								<apex:column headerValue="Input Value">
+									<apex:inputText disabled="{!item.isQuery}" value="{!item.inputValue}" />
+								</apex:column>
+							</apex:pageBlockTable>
+
+						</apex:pageBlockSection>
+					</apex:pageBlockSection>
+
+					<!-- Cells Update Call -->
+					<apex:pageBlockSection id="gsheetcellsinsert" title="UPDATE"
+						columns="1" collapsible="false">
+						<apex:inputText label="Spreadsheet Id"
+							value="{!cellsUpdateRequestSpreadsheetId}" />
+						<apex:inputText label="Worksheet Id"
+							value="{!cellsUpdateRequestWorksheetId}" />
+						<apex:inputText label="Version"
+							value="{!cellsUpdateRequestVersion}" />
+						<apex:input label="Col" type="number"
+							value="{!cellsUpdateRequestCol}" />
+						<apex:input label="Row" type="number"
+							value="{!cellsUpdateRequestRow}" />
+						<apex:inputText label="Input Value"
+							value="{!cellsUpdateRequestInputValue}" />
+						<apex:commandButton value="Submit" action="{!cellsUpdateRequest}"
+							rerender="messages" />
+					</apex:pageBlockSection>
+				</apex:pageBlockSection>
+			</apex:actionRegion>
+		</apex:pageblock>
+	</apex:form>
+</apex:page>
