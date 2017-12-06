@@ -473,7 +473,7 @@ public class GoogleSheetsExportListController
     	String tokenType = connectorService.connector.tokenType__c;
         String accessToken = connectorService.connector.accessToken__c;
         
-    	ffhttp_Client.Credentials credentials = new ffhttp_Client.Credentials(tokenType, accessToken);
+    	ffhttp_Client.ICredentials credentials = new ffhttp_Client.AccessTokenCredentials(tokenType, accessToken);
         return new ffhttp_GoogleSheets(credentials);
     }
     
