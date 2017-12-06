@@ -32,7 +32,7 @@ This section explains how to configure the Google Sheets Sample App.
 12. Select the **Opportunities** tab, choose to view **All Opportunities** and select **Go**.
 13. Check that the **Export to Google Sheets** button is shown.
 
-###Create an app in Google
+### Create an app in Google
 
 1. Log in to your Google account.
 2. Go to https://console.developers.google.com/project and select **Create Project**.
@@ -47,7 +47,7 @@ This section explains how to configure the Google Sheets Sample App.
 11. Select the **Consent screen**.
 12. Enter a **Product Name** and save.
 
-###Create a Google Sheets Connector in Salesforce
+### Create a Google Sheets Connector in Salesforce
 1. Log in to your Salesforce organisation.
 2. Go to the **Developer Console** and select **Debug** > **Open Execute Anonymous Window**.
 3. Run the following code changing the parameters to the appropriate values:
@@ -63,12 +63,12 @@ Use
 
 Once the project is configured:
 
-###Test Harness
+### Test Harness
 1. Select the **Test Harness** tab.
 2. Check that you get a message starting with 'Successful authentication'. If you do not, check that all the configuration steps have been peformed correctly.
 3. Expand any section to display the API calls, then select **Submit** to test the call.
 
-###Transfer Opportunities To Google Sheets Sample App
+### Transfer Opportunities To Google Sheets Sample App
 1. Select the **Opportunities** tab, choose to view **All Opportunities** and select **Go**.
 2. Select some Opportunities and then **Export to Google Sheets**.
 3. Select the fields that you wish to export, the spreadsheet, and the worksheet that you wish to export the data to.
