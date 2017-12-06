@@ -558,7 +558,7 @@ public with sharing class GoogleSheetsTestHarnessController
     	String tokenType = connectorService.connector.TokenType__c;
     	String accessToken = connectorService.connector.AccessToken__c;
     	
-    	ffhttp_Client.Credentials credentials = new ffhttp_Client.Credentials(tokenType, accessToken);
+    	ffhttp_Client.ICredentials credentials = new ffhttp_Client.AccessTokenCredentials(tokenType, accessToken);
         return new ffhttp_GoogleSheets(credentials);
     }
     
